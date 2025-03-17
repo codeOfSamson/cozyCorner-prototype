@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "adm-zip": "^0.5.16",
+    "apollo-server-express": "^3.13.0",
+    "csv-parser": "^3.2.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "fs-extra": "^11.3.0",
+    "graphql": "^16.10.0",
+    "mongoose": "^8.12.1",
+    "playwright": "^1.51.0"
+  },
+  "name": "cozycorner-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
