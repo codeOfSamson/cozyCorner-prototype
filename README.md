@@ -1,0 +1,1 @@
+# cozyCorner-prototype
