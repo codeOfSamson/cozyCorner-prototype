@@ -4,8 +4,8 @@ import csvParser from "csv-parser";
 
 const resolvers = {
   Query: {
-    getAllRecords: async () => {
-      return await Record.find();
+    getRecords: async (_, { limit = 50, offset = 0 }) => {
+      return await Record.find().skip(offset).limit(limit);
     },
   },
 

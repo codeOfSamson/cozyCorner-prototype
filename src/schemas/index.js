@@ -10,9 +10,9 @@ const typeDefs = gql`
 
   scalar JSON
 
-  type Query {
-    getAllRecords: [Record]
-  }
+type Query {
+  getRecords(limit: Int, offset: Int): [Record]
+}
 
   type Mutation {
     uploadCSV(filePath: String!): String

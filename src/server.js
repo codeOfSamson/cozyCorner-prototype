@@ -35,7 +35,7 @@ app.post("/fetch-data", async (req, res) => {
       for (const file of csvFiles) {
         await processCsv(file);
       }
-  
+      console.log('Done!')
       res.json({ message: "Data fetched and saved successfully!" });
     } catch (error) {
       console.error("❌ Error:", error);

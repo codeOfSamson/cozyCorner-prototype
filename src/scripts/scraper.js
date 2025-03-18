@@ -8,7 +8,7 @@ const DOWNLOAD_DIR = path.resolve("./downloads");
 fs.ensureDirSync(DOWNLOAD_DIR);
 
 
-const downloadZip = async () => {
+const downloadZip = async (req, res) => {
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({ acceptDownloads: true });
     const page = await context.newPage();
@@ -47,40 +47,46 @@ const downloadZip = async () => {
     await download.saveAs(zipPath);
     console.log("Downloaded ZIP:", zipPath);
     
-    // Extract ZIP file
-    const zip = new admZip(zipPath);
-    zip.extractAllTo(DOWNLOAD_DIR, true);
-    console.log("ZIP extracted to:", DOWNLOAD_DIR);
+    // // Extract ZIP file
+    // const zip = new admZip(zipPath);
+    // zip.extractAllTo(DOWNLOAD_DIR, true);
+    // console.log("ZIP extracted to:", DOWNLOAD_DIR);
     
-    // Find the first CSV file inside
-    const extractedFiles = fs.readdirSync(DOWNLOAD_DIR);
-    const csvFile = extractedFiles.find(file => file.endsWith(".csv"));
-    if (!csvFile) throw new Error("No CSV file found in ZIP");
+    // // Find the first CSV file inside
+    // const extractedFiles = fs.readdirSync(DOWNLOAD_DIR);
+    // const csvFile = extractedFiles.find(file => file.endsWith(".csv"));
+    // if (!csvFile) throw new Error("No CSV file found in ZIP");
     
-    const csvPath = path.join(DOWNLOAD_DIR, csvFile);
-    console.log("Found CSV:", csvPath);
+    // const csvPath = path.join(DOWNLOAD_DIR, csvFile);
+    // console.log("Found CSV:", csvPath);
     
-    // Read CSV and send response
-    const results = [];
-    fs.createReadStream(csvPath)
-      .pipe(csv())
-      .on("data", (data) => results.push(data))
-      .on("end", () => res.json(results));
+    // // Read CSV and send response
+    // const results = [];
+    // fs.createReadStream(csvPath)
+    //   .pipe(csv())
+    //   .on("data", (data) => results.push(data))
+    //   .on("end", () => res.json(results));
     
     
     
     
         
-        // 5. Save the file
-        const filePath = path.join(DOWNLOAD_DIR, download.suggestedFilename());
-        console.log(69, filePath)
-        await download.saveAs(filePath);
+        // // 5. Save the file
+        // const filePath = path.join(DOWNLOAD_DIR, download.suggestedFilename());
+        // console.log(69, filePath)
+        // await download.saveAs(filePath);
         // 6. Parse and return the file data
         // const fileData = await parseFile(filePath);
         // res.json({ fileName: path.basename(filePath), data: fileData });
+
+        await browser.close();
+
+        return zipPath;
     
-      } catch (error) {
-        res.status(500).json({ error: error.message });
+      } catch (error) { 
+        console.log('e', error.message
+        )
+
       } finally {
         await browser.close();
       }
@@ -106,9 +112,7 @@ const downloadZip = async () => {
 //   const zipPath = path.join(DOWNLOAD_DIR, "data.zip");
 //   await download.saveAs(zipPath);
 
-  await browser.close();
 
-  return zipPath;
 };
 
 export default downloadZip;
